@@ -66,9 +66,8 @@ const loginUser = asyncHandler(async (req, res) => {
             email: fetchUser.email,
             name: fetchUser.name,
             token: generateToken(fetchUser.id)
-
-
         })
+        
     } else {
         res.status(400)
         throw new Error('oops.. cant find You')

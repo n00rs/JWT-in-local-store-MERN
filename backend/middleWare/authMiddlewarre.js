@@ -17,7 +17,8 @@ token = req.headers.authorization.split(' ')[1]
 
 const decode = jwt.verify(token, process.env.JWT_SECERT)
 
-// 
+// saving user in req.user to access or verify
+
 req.user = await user.findById(decode.id).select('-password')
 
 next()
