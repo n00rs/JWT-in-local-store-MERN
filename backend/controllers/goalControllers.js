@@ -1,12 +1,15 @@
 const asyncHandler = require('express-async-handler')
 const goal = require('../models/goalModel')
+const user = require('../models/userModel') 
+
 
 //method:  GET   
 //route:  /api/goals
 
 
 const getGoals = asyncHandler(async (req, res) => {
-    const goals = await goal.find({})
+    
+    const goals = await goal.find({user: req.user.id})
     res.status(200).json(goals)
 })
 
@@ -22,7 +25,8 @@ const setGoal = asyncHandler(async (req, res) => {
     }
 
     const setGoal = await goal.create({
-        text: req.body.text
+        text: req.body.text,
+        user: req.user.id
     })
     res.status(200).json(setGoal)
 })
@@ -35,12 +39,26 @@ const setGoal = asyncHandler(async (req, res) => {
 
 const updateGoals = asyncHandler(async (req, res) => {
    
-    const checkId = await goal.findById(req.params.id)                                                                     // if no id error is handled by error handler not throwing error
-    if (!checkId) {
+    const fetchGoal = await goal.findById(req.params.id)                                                                     // if no id error is handled by error handler not throwing error
+    
+
+
+    if (!fetchGoal) {
         res.status(400)
         throw new Error('please check the id ')
     }
-    
+    const fetchUser = await user.findById(req.user.id)
+
+    if(!fetchUser){
+        res.status(401)
+        throw new Error ('user not found');
+    }
+
+    if(fetchGoal.user.toString() !== fetchUser.id ){
+         res.status(401)
+         throw new Error ('user not authorised')
+    }
+
     const updateGoal = await goal.findByIdAndUpdate(req.params.id, req.body, {
         new: true
     })
@@ -55,13 +73,25 @@ const updateGoals = asyncHandler(async (req, res) => {
 
 const deleteGoals = asyncHandler(async (req, res) => {
 
-    const checkId = await goal.findById(req.params.id)   
-  
-    if (!checkId) {
+    const fetchGoal = await goal.findById(req.params.id)                                                                     // if no id error is handled by error handler not throwing error
+    
+
+
+    if (!fetchGoal) {
         res.status(400)
         throw new Error('please check the id ')
     }
+    const fetchUser = await user.findById(req.user.id)
 
+    if(!fetchUser){
+        res.status(401)
+        throw new Error ('user not found');
+    }
+
+    if(fetchGoal.user.toString() !== fetchUser.id ){
+         res.status(401)
+         throw new Error ('user not authorised')
+    }
     const deleteGoal = await goal.findByIdAndRemove(req.params.id)
 
     res.status(200).json({ deleteGoalId: deleteGoal._id })
