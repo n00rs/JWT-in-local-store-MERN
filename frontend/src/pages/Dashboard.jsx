@@ -6,6 +6,8 @@ import GoalForm from "../components/GoalForm"
 import { getGoals, reset } from "../features/goal/goalSlice"
 // import Sp from "../components/Spinner";
 import Spinner from "../components/Spinner"
+// import GoalItem from "../components/GoalItem"
+import GoalItem from '../components/GoalItem'
 
 
 function Dashboard() {
@@ -36,10 +38,27 @@ function Dashboard() {
       <section className="heading">
         <h1>Welcome {user && user.name}</h1>
         <p>Dashboard</p>
-        <GoalForm />
+      </section>
+      <GoalForm />
 
+      <section className="content">
+
+        {goals.length > 0 ? (
+          <div className="goals" >
+            {
+            goals.map((goal) => {
+// console.log(goal);
+           return  <GoalItem key={goal._id} goals={goal} />
+              // return
+            })
+            }
+          </div>
+        ) : (
+          <h3> sorry Nothing to display here</h3>
+        )}
 
       </section>
+
     </>
   )
 }

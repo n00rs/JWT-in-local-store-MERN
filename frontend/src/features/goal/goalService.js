@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { Axios } from 'axios'
 
 const API_URL = '/api/goals/'
 
@@ -20,14 +20,26 @@ const getGoals = async (token)=>{
             Authorization: `Bearer ${token}`
         }
     }
-    console.log(config);
+    // console.log(config);
     const response = await axios.get(API_URL,config)
     return response.data
 }
 
+const deleteGoal = async (id,token)=>{
+    const config = {
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const response = await axios.delete(API_URL+id, config)
+    return response.data
+
+}
+
 const goalService = {
     createGoal,
-    getGoals
+    getGoals,
+    deleteGoal
 }
 
 export default goalService 
