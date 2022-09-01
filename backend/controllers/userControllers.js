@@ -80,11 +80,7 @@ const loginUser = asyncHandler(async (req, res) => {
 const getUser = asyncHandler(async (req, res) => {
 
 
-    res.json({
-        id: req.user.id,
-        name: req.user.name,
-        email: req.user.email,
-      })
+    res.status(200).json(req.user)
 })
 
 

@@ -47,14 +47,14 @@ const updateGoals = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error('please check the id ')
     }
-    const fetchUser = await user.findById(req.user.id)
+    // const fetchUser = await user.findById(req.user.id)
 
-    if(!fetchUser){
+    if(!req.user){
         res.status(401)
         throw new Error ('user not found');
     }
 
-    if(fetchGoal.user.toString() !== fetchUser.id ){
+    if(fetchGoal.user.toString() !== req.user.id ){
          res.status(401)
          throw new Error ('user not authorised')
     }
@@ -82,14 +82,14 @@ const deleteGoals = asyncHandler(async (req, res) => {
         throw new Error('please check the id ')
     }
 
-    const fetchUser = await user.findById(req.user.id)
+    // const fetchUser = await user.findById(req.user.id)
 
-    if(!fetchUser){
+    if(!req.user){
         res.status(401)
         throw new Error ('user not found');
     }
 
-    if(fetchGoal.user.toString() !== fetchUser.id ){
+    if(fetchGoal.user.toString() !== req.user.id ){
          res.status(401)
          throw new Error ('user not authorised')
     }

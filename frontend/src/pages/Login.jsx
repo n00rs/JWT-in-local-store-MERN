@@ -1,11 +1,11 @@
 
 import { useEffect, useState } from 'react'
-import { FaSignInAlt, FaUser } from 'react-icons/fa'
+import { FaSignInAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
-import { login , reset } from '../features/auth/authSlice'
+import { reset, userLogin } from '../features/auth/authSlice'
 // import { Toast } from 'react-toastify/dist/components'
 
 
@@ -13,7 +13,9 @@ function Login() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { user, isError, isSuccess, isLoading, message } = useSelector((state) => state.auth)
+    const { user, isError, isSuccess, isLoading, message } = useSelector(
+        (state) => state.auth
+        )
 
     useEffect(() => {
 
@@ -50,7 +52,7 @@ function Login() {
         
         const loginData = { email, password }
         
-        dispatch(login(loginData))
+        dispatch(userLogin(loginData))
     }
 
     if (isLoading) {
