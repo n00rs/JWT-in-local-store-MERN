@@ -24,11 +24,18 @@ function Dashboard() {
 
     dispatch(getGoals())
 
+  
+  }, [user, isError, message, dispatch, navigate])
+
+  useEffect(() => {
+    
+  
     return () => {
       dispatch(reset())
     }
 
-  }, [user, isError, message, dispatch, navigate])
+  }, [])
+  
 
   if (isLoadinig) {
     return <Spinner />
