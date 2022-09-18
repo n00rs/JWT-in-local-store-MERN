@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { deleteGoal, updateGoal } from '../features/goal/goalSlice'
 
@@ -7,13 +7,9 @@ import { deleteGoal, updateGoal } from '../features/goal/goalSlice'
 
 function GoalItem({ goals }) {
   const [text, setText] = useState('')
-
-
   const dispatch = useDispatch()
-  // console.log(props);
-
-
-
+ 
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     const updateData = { text, id: goals._id }
@@ -27,11 +23,12 @@ function GoalItem({ goals }) {
       <div>
         {new Date(goals.createdAt).toDateString()}
         <h2>{goals.text}</h2>
-        <button onClick={(e) => {e.preventDefault()
-        
-        dispatch(deleteGoal(goals._id))
-      }
-      }
+        <button onClick={(e) => {
+          e.preventDefault()
+
+          dispatch(deleteGoal(goals._id))
+        }
+        }
           className='close' >
           X</button>
         <form onSubmit={handleSubmit}>

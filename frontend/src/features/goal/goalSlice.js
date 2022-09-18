@@ -9,7 +9,7 @@ const initialState = {
     message: ''
 }
 
-//xreate goals
+//CREATE goals
 
 export const createGoal = createAsyncThunk('goal/create', async (goalData, thunkApi) => {
     try {
@@ -25,7 +25,7 @@ export const createGoal = createAsyncThunk('goal/create', async (goalData, thunk
 })
 
 
-//get user goals
+//GET user goals
 
 export const getGoals = createAsyncThunk('goal/getAll', async (_, thunkApi) => {
     try {
@@ -42,7 +42,7 @@ export const getGoals = createAsyncThunk('goal/getAll', async (_, thunkApi) => {
     }
 })
 
-//deleteGoal
+//DELETE Goal
 
 export const deleteGoal = createAsyncThunk('goal/deleteGoal', async (id, thunkApi) => {
     try {
@@ -59,7 +59,7 @@ export const deleteGoal = createAsyncThunk('goal/deleteGoal', async (id, thunkAp
 })
 
 
-//update goals
+//UPDATE goals
 
 export const updateGoal = createAsyncThunk('goal/updateGoal', async (updateData, thunkApi) => {
     try {

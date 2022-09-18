@@ -8,6 +8,7 @@ import { getGoals, reset } from "../features/goal/goalSlice"
 import Spinner from "../components/Spinner"
 // import GoalItem from "../components/GoalItem"
 import GoalItem from '../components/GoalItem'
+import { toast } from "react-toastify"
 
 
 function Dashboard() {
@@ -17,9 +18,8 @@ function Dashboard() {
   const { goals, isError, isLoadinig, message } = useSelector((state) => state.goal)
 
   useEffect(() => {
-    if (isError) {
-      console.log(message)
-    }
+    if (isError) toast.error(message)
+
     if (!user) navigate('/login')
 
     dispatch(getGoals())
@@ -27,9 +27,7 @@ function Dashboard() {
   
   }, [user, isError, message, dispatch, navigate])
 
-  useEffect(() => {
-    
-  
+  useEffect(() => { 
     return () => {
       dispatch(reset())
     }
@@ -54,9 +52,7 @@ function Dashboard() {
           <div className="goals" >
             {
             goals.map((goal) => {
-// console.log(goal);
            return  <GoalItem key={goal._id} goals={goal} />
-              // return
             })
             }
           </div>
